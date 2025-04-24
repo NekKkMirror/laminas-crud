@@ -1,0 +1,306 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Task API",
+        "description": "API for managing tasks in Laminas application",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080/api/v1",
+            "description": "Base URL for the Task API"
+        }
+    ],
+    "paths": {
+        "/todo": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Retrieve a list of all tasks",
+                "operationId": "c121757079f8fab260dd9a21aa7dc383",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation - list of tasks",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TaskResponseDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Create a new task",
+                "operationId": "c7a16d6df8ee61d3e6a7da59cc45387e",
+                "requestBody": {
+                    "description": "Task creation data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTaskDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Task created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Title is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/todo/{id}": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Retrieve a task by its ID",
+                "operationId": "9704caf584727861ded9d64d17621f3d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task ID (UUID format)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation - task details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Task not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Task not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Update an existing task",
+                "operationId": "2fd6fe0d905ca4a0557c991c10b2278a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task ID (UUID format)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Task update data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTaskDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Task updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Invalid created_at format"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Task not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Task not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CreateTaskDto": {
+                "title": "Create Task DTO",
+                "description": "Data structure for creating a new task",
+                "required": [
+                    "title",
+                    "created_at"
+                ],
+                "properties": {
+                    "title": {
+                        "description": "Task title",
+                        "type": "string",
+                        "example": "New Task"
+                    },
+                    "description": {
+                        "description": "Task description",
+                        "type": "string",
+                        "example": "Task details",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "Creation date",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-10-15 2:00:00"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskResponseDto": {
+                "title": "Task Response DTO",
+                "description": "Data structure for task response",
+                "required": [
+                    "id",
+                    "title",
+                    "created_at"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Task ID",
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "550e8400-e29b-41d4-a716-446655440000"
+                    },
+                    "title": {
+                        "description": "Task title",
+                        "type": "string",
+                        "example": "Complete project"
+                    },
+                    "description": {
+                        "description": "Task description",
+                        "type": "string",
+                        "example": "Finish the API documentation",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "Creation date",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-10-15 12:00:00"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateTaskDto": {
+                "title": "Update Task DTO",
+                "description": "Data structure for updating an existing task",
+                "properties": {
+                    "title": {
+                        "description": "Task title",
+                        "type": "string",
+                        "example": "Updated Task"
+                    },
+                    "description": {
+                        "description": "Task description",
+                        "type": "string",
+                        "example": "Updated details",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "Creation date",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-10-15 12:00:00"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Tasks",
+            "description": "Operations related to task management"
+        }
+    ]
+}

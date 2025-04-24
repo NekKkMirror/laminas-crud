@@ -1,0 +1,46 @@
+# PHP and Laminas-specific ignores
+/vendor composer.lock
+/config/autoload/local.php
+/config/autoload/.local.php
+/config/autoload/.cache.php
+/data/cache/*
+/data/session/*
+/data/log/*
+/data/DoctrineModule/cache/*
+/data/DoctrineORMModule/Proxy/*
+
+# Development tools and tests
+/tests
+/build
+/coverage
+.phpunit.result.cache
+.php_cs.cache
+.phpstan.cache
+infection.log
+
+# IDE and editor files
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+
+# Git-related
+.git
+.gitignore
+.github
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Docker-specific
+Dockerfile
+docker-compose.yml
+docker-compose.*.yml
+docker-compose.override.yml

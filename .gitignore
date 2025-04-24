@@ -1,0 +1,50 @@
+# PHP-specific
+vendor/
+composer.lock
+.phpunit.result.cache
+.php_cs.cache
+.phpstan.cache
+infection.log
+
+# Laminas-specific
+/config/autoload/local.php
+/config/autoload/.local.php
+/config/autoload/.cache.php
+/data/cache/*
+!/data/cache/.gitkeep
+/data/session/*
+!/data/session/.gitkeep
+/data/log/*
+!/data/log/.gitkeep
+
+# Build and test artifacts
+/build/
+/coverage/
+/tests/_output/
+/tests/_support/_generated/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+*.iml
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.log
+*.cache
+*.bak
+*.swp *~
+data/logs/
+data/cache/
+tmp/
