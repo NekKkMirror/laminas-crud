@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     libonig-dev \
     libxml2-dev \
-    iputils-ping \
     && docker-php-ext-install -j$(nproc) \
         pdo \
         pdo_pgsql \
@@ -34,3 +33,5 @@ COPY --chown=laminas:laminas . /app
 RUN composer install --no-scripts --no-autoloader && composer dump-autoload
 
 RUN chmod -R 775 /app/data /app/module
+
+from dev AS test
